@@ -22,15 +22,20 @@ const initialState = anecdotesAtStart.map(asObject)
 const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
-
+  const sortByLikes = (state) => {
+    return [...state].sort((a, b) => b.votes - a.votes)
+  }
+  
   switch(action.type) {
+    case 'CREATE': {
+      return [...state, action.payload]
+    }
     case 'INCREMENT_VOTE': {
-      console.log(action)
       const id = action.payload.id
       const newState = state.map(item => item.id !== id
         ? item
         : { ...item, votes: item.votes + 1 })
-      return newState
+      return sortByLikes(newState)
     }
     default:
       return state
@@ -41,6 +46,13 @@ export const voteFor = (id) => {
   return {
     type: 'INCREMENT_VOTE',
     payload: { id }
+  }
+}
+
+export const createAnecdote = (content) => {
+  return {
+    type: 'CREATE',
+    payload: asObject(content)
   }
 }
 
