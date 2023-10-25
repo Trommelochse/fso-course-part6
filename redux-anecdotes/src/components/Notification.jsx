@@ -4,14 +4,26 @@ const Notification = () => {
 
   const notification = useSelector(state => state.notification)
   const style = {
-    border: 'solid',
+    position: 'fixed',
+    right: 20,
+    maxWidth: 300,
+    borderStyle: 'solid',
     padding: 10,
     borderWidth: 1
   }
-  return (
+
+  const renderNotification = () => {
+    return (
     <div style={style}>
       {notification}
     </div>
+    )
+  }
+
+  return (
+    <>
+      { notification.length ? renderNotification() : null  }
+    </>
   )
 }
 
