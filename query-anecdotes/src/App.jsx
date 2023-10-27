@@ -18,7 +18,6 @@ const App = () => {
     return <>
       <h2>Server Error</h2>
       <p>Something went wrong...</p>
-      <p>{JSON.stringify(anecdotesQuery.error)}</p>
     </>
   }
 

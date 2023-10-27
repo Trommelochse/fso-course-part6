@@ -13,7 +13,13 @@ const AnecdoteForm = () => {
     onSuccess: (newAnecdote) => {
       const anecdotes = queryClient.getQueryData(['anecdotes'])
       queryClient.setQueryData(['anecdotes'], anecdotes.concat(newAnecdote))
-      notificationDispatch({ type: 'SET', payload: `Successfully created a new anecdote.` })
+      notificationDispatch({ type: 'SET', payload: `Successfully created the new anecdote: "${newAnecdote.content}"` })
+      setTimeout(() => {
+        notificationDispatch({ type: 'CLEAR'})
+      }, 5000)
+    },
+    onError: (error) => {
+      notificationDispatch({ type: 'SET', payload: error.response.data.error })
       setTimeout(() => {
         notificationDispatch({ type: 'CLEAR'})
       }, 5000)
